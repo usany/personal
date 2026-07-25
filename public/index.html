@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Screenshot</title>
+  <!-- Tailwind via CDN (planner §6: zero build step for v1) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="h-full bg-slate-50 text-slate-800 antialiased">
+  <div class="mx-auto max-w-5xl px-4 py-8">
+    <!-- Header -->
+    <header class="mb-8 flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-semibold tracking-tight">URL Screenshot</h1>
+        <p class="text-sm text-slate-500">Capture any web page at a chosen viewport.</p>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-slate-500">
+        <span id="health-status"
+              data-ready="false"
+              class="inline-block h-2.5 w-2.5 rounded-full bg-slate-300"
+              title="Server status"></span>
+        <span id="health-label">connecting…</span>
+      </div>
+    </header>
+
+    <div class="grid gap-8 md:grid-cols-[minmax(0,340px)_1fr]">
+      <!-- Controls -->
+      <section aria-label="Capture settings"
+               class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <form id="capture-form" class="space-y-4" novalidate>
+          <!-- URL -->
+          <div>
+            <label for="url-input" class="mb-1 block text-sm font-medium">Page URL</label>
+            <input id="url-input" name="url" type="url" inputmode="url"
+                   autocomplete="off" spellcheck="false"
+                   placeholder="https://example.com"
+                   class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm
+                          focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+            <p id="url-hint" class="mt-1 hidden text-xs text-amber-600">
+              URL must start with http:// or https://
+            </p>
+          </div>
+
+          <!-- Preset -->
+          <div>
+            <label for="preset-select" class="mb-1 block text-sm font-medium">Device preset</label>
+            <select id="preset-select"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm
+                           focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+              <option value="">Loading presets…</option>
+            </select>
+          </div>
+
+          <!-- Dimensions -->
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="width-input" class="mb-1 block text-sm font-medium">Width</label>
+              <input id="width-input" name="width" type="number" min="1" max="3840" value="1920"
+                     class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm
+                            focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+            </div>
+            <div>
+              <label for="height-input" class="mb-1 block text-sm font-medium">Height</label>
+              <input id="height-input" name="height" type="number" min="1" max="2160" value="1080"
+                     class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm
+                            focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+            </div>
+          </div>
+
+          <!-- Format + full page -->
+          <div class="flex items-end justify-between gap-3">
+            <div class="flex-1">
+              <label for="format-select" class="mb-1 block text-sm font-medium">Format</label>
+              <select id="format-select" name="format"
+                      class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm
+                             focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+              </select>
+            </div>
+            <label class="flex items-center gap-2 pb-2 text-sm">
+              <input id="fullpage-toggle" name="fullPage" type="checkbox"
+                     class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+              Full page
+            </label>
+          </div>
+
+          <!-- Capture -->
+          <button id="capture-btn" type="submit" disabled
+                  class="group flex w-full items-center justify-center gap-2 rounded-lg
+                         bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white
+                         transition hover:bg-indigo-700
+                         disabled:cursor-not-allowed disabled:bg-slate-300">
+            <span id="loading-spinner" class="spinner hidden" aria-hidden="true"></span>
+            <span id="capture-btn-label">Capture</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Preview -->
+      <section aria-label="Preview" class="flex flex-col">
+        <!-- Error banner -->
+        <div id="error-banner" role="alert"
+             class="mb-3 hidden rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <span id="error-message"></span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <h2 class="text-sm font-medium text-slate-600">Preview</h2>
+          <button id="download-btn" type="button" disabled
+                  class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium
+                         text-slate-700 transition hover:bg-slate-50
+                         disabled:cursor-not-allowed disabled:opacity-50">
+            Download
+          </button>
+        </div>
+
+        <div id="preview"
+             class="mt-2 flex min-h-[320px] flex-1 items-center justify-center overflow-auto
+                    rounded-xl border border-dashed border-slate-300 bg-white p-3">
+          <!-- Empty state -->
+          <div id="preview-empty" class="text-center text-sm text-slate-400">
+            <p>No screenshot yet.</p>
+            <p class="mt-1">Enter a URL and press Capture.</p>
+          </div>
+          <!-- Result image (hidden until first capture) -->
+          <img id="preview-img" alt="Captured screenshot"
+               class="hidden max-h-[70vh] max-w-full rounded-md shadow-sm" />
+        </div>
+
+        <p id="status-bar" class="mt-2 hidden text-xs text-slate-500"></p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Compiled from public/ts/main.ts (see public/tsconfig.json) -->
+  <script type="module" src="/ts/main.js"></script>
+</body>
+</html>

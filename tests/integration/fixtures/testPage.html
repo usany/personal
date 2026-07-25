@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Screenshot Test Fixture</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      /* Deterministic, fully painted layout so screenshots are stable across runs.
+         Solid background + no web fonts / no external assets => no network flakiness. */
+      body {
+        width: 100%;
+        min-height: 100vh;
+        background: #0f172a;
+        color: #f8fafc;
+        font-family: monospace;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #marker {
+        padding: 24px 40px;
+        background: #22d3ee;
+        color: #0f172a;
+        border-radius: 8px;
+        font-size: 32px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- data-testid lets E2E reuse this fixture deterministically -->
+    <div id="marker" data-testid="fixture-marker">SCREENSHOT-FIXTURE-OK</div>
+  </body>
+</html>

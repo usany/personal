@@ -1,0 +1,50 @@
+/*
+ * URL Screenshot — custom styles.
+ * Tailwind (CDN) handles layout/utilities. This file holds only the few
+ * things Tailwind CDN can't express inline: the loading spinner keyframes
+ * and small state hooks used by the client TS.
+ */
+
+/* Loading spinner shown inside #capture-btn while a capture is in flight. */
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 9999px;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* When the capture button is in the loading state, hide the label so only
+   the spinner shows. main.ts toggles [data-loading] on #capture-btn. */
+#capture-btn[data-loading="true"] #capture-btn-label {
+  opacity: 0.85;
+}
+
+/* Health status dot: green when the server + browser singleton are ready. */
+#health-status[data-ready="true"] {
+  background-color: #22c55e; /* green-500 */
+}
+#health-status[data-ready="false"] {
+  background-color: #cbd5e1; /* slate-300 */
+}
+#health-status[data-ready="error"] {
+  background-color: #ef4444; /* red-500 */
+}
+
+/* Checkerboard behind the preview image so transparent PNGs are readable. */
+#preview-img:not(.hidden) {
+  background-image:
+    linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+    linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
