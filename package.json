@@ -5,6 +5,7 @@
   "type": "module",
   "description": "URL Screenshot — Express + Playwright screenshot service",
   "scripts": {
+    "build": "tsc",
     "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
     "typecheck": "tsc --noEmit",
