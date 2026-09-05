@@ -98,16 +98,6 @@ variable "instance_shape" {
   type        = string
 }
 
-variable "instance_flex_memory_in_gbs" {
-  description = "(Updatable) The total amount of memory available to the instance, in gigabytes."
-  type        = number
-}
-
-variable "instance_flex_ocpus" {
-  description = "(Updatable) The total number of OCPUs available to the instance."
-  type        = number
-}
-
 variable "instance_create_vnic_details_assign_public_ip" {
   description = "To allow compute connectivity from internet"
   type        = bool

@@ -17,10 +17,6 @@ resource "oci_core_instance" "test_windows_instance" {
   }
 
   shape = var.instance_shape
-  shape_config {
-    memory_in_gbs = var.instance_flex_memory_in_gbs
-    ocpus         = var.instance_flex_ocpus
-  }
 
   launch_options {
     boot_volume_type                    = "PARAVIRTUALIZED"
