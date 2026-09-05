@@ -7,7 +7,7 @@ resource "oci_core_instance" "test_linux_instance" {
   create_vnic_details {
     assign_public_ip       = "true"
     display_name           = var.instance_display_name
-    nsg_ids                = []
+    nsg_ids                = var.nsg_ids
     skip_source_dest_check = "false"
     subnet_id              = var.create_new_vcn ? oci_core_subnet.public_subnet[0].id : var.public_subnet_id
   }

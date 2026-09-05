@@ -64,6 +64,12 @@ variable "public_subnet_id" {
   type        = string
 }
 
+variable "nsg_ids" {
+  description = "List of existing Network Security Group OCIDs to attach to the instance VNICs (optional)."
+  type        = list(string)
+  default     = []
+}
+
 #Private subnet variables
 variable "private_subnet_cidr_block" {
   description = "OCI private subnet CIDR block range"
