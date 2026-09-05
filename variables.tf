@@ -138,3 +138,46 @@ variable "linux_image_ocid" {
   type        = string
 }
 
+#Logging variables
+variable "enable_logging" {
+  description = "Whether to create OCI Logging resources (log group and flow log)"
+  type        = bool
+  default     = true
+}
+
+variable "log_group_display_name" {
+  description = "Display name for the OCI Log Group - this is what you will see displayed in the OCI console"
+  type        = string
+  default     = "terraform_log_group"
+}
+
+variable "log_group_description" {
+  description = "Description for the OCI Log Group"
+  type        = string
+  default     = "Log group managed by Terraform"
+}
+
+variable "enable_flow_log" {
+  description = "Whether to create a VCN Flow Log. Requires a VCN OCID (either the newly created VCN or an existing VCN OCID)."
+  type        = bool
+  default     = true
+}
+
+variable "flow_log_display_name" {
+  description = "Display name for the VCN Flow Log - this is what you will see displayed in the OCI console"
+  type        = string
+  default     = "vcn_flow_log"
+}
+
+variable "log_retention_duration" {
+  description = "Number of days to retain log data (0 = keep forever)"
+  type        = number
+  default     = 30
+}
+
+variable "vcn_id" {
+  description = "Existing VCN OCID. Required when create_new_vcn = false and enable_flow_log = true."
+  type        = string
+  default     = ""
+}
+

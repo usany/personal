@@ -41,3 +41,19 @@ output "output_windows_instance_public_ip" {
 output "output_windows_instance_state" {
   value = oci_core_instance.test_windows_instance.*.state
 }
+
+# Logging
+output "output_log_group_id" {
+  description = "OCID of the OCI Log Group"
+  value       = oci_logging_log_group.app_log_group.*.id
+}
+
+output "output_log_group_display_name" {
+  description = "Display name of the OCI Log Group"
+  value       = oci_logging_log_group.app_log_group.*.display_name
+}
+
+output "output_flow_log_id" {
+  description = "OCID of the VCN Flow Log"
+  value       = oci_logging_log.vcn_flow_log.*.id
+}

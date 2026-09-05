@@ -1,0 +1,35 @@
+# Copy this file to terraform.tfvars and adjust the values.
+
+project_name = "my-app"
+framework    = "nextjs"
+
+git_repo_type = "github"
+git_repo      = "you/my-app"
+
+build_command    = "npm run build"
+install_command  = "npm install"
+output_directory = ".next"
+
+# Environment variables (use env vars or a secrets manager for real secrets)
+environment = [
+  {
+    key    = "DATABASE_URL"
+    value  = "postgres://user:pass@host/db"
+    target = ["production", "preview", "development"]
+  }
+]
+
+# Custom domains (leave empty if you don't need any)
+domains = [
+  # {
+  #   domain               = "www.myapp.com"
+  #   redirect             = "myapp.com"
+  #   redirect_status_code = 308
+  # }
+]
+
+# Point this at your application source to trigger a deployment on apply.
+# Leave empty ("") to manage only project config and let Git integration deploy.
+source_path = "../app"
+
+production = true
