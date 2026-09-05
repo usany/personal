@@ -49,16 +49,6 @@ variable "vcn_dns_label" {
   type        = string
 }
 
-variable "vcn_id" {
-  description = "provide your existing VCN OCID if create_new_vcn = false"
-  type        = string
-}
-
-variable "private_subnet_id" {
-  description = "provide existing private subnet OCID"
-  type        = string
-}
-
 variable "public_subnet_id" {
   description = "provide existing public subnet OCID"
   type        = string
