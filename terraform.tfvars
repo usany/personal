@@ -42,7 +42,7 @@ create_windows_instance = true # Set to true to create a Windows instance
 
 # Image OCIDs - Replace with your region-specific image OCIDs
 # Example for us-phoenix-1 region:
-linux_image_ocid   = "REPLACE_BY_YOUR_REGION_LINUX_IMAGE_OCID"   # Oracle Linux 9 image OCID
+linux_image_ocid   = "ocid1.image.oc1.ap-chuncheon-1.aaaaaaaarnvxpm6huaivntpbo7altkvhudn4xporhukuqf2yjrgz2ucme25a"   # Oracle Linux 9 image OCID
 windows_image_ocid = "REPLACE_BY_YOUR_REGION_WINDOWS_IMAGE_OCID" # Windows image OCID
 
 # Popular region image OCIDs:
