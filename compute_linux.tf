@@ -20,11 +20,7 @@ resource "oci_core_instance" "test_linux_instance" {
     ssh_authorized_keys = "${file(var.public_ssh_key)}"
   }
 
-  shape = var.instance_shape
-  shape_config {
-    memory_in_gbs = var.instance_flex_memory_in_gbs
-    ocpus         = var.instance_flex_ocpus
-  }
+  shape = var.linux_instance_shape
 
   launch_options {
     boot_volume_type                    = "PARAVIRTUALIZED"

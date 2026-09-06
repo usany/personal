@@ -102,6 +102,12 @@ variable "instance_shape" {
   type        = string
 }
 
+variable "linux_instance_shape" {
+  description = "Shape of the Linux compute instance (Always Free: VM.Standard.E2.1.Micro with 1/8 OCPU and 1 GB)"
+  type        = string
+  default     = "VM.Standard.E2.1.Micro"
+}
+
 variable "instance_flex_memory_in_gbs" {
   description = "Total amount of memory available to the instance, in gigabytes"
   type        = number
