@@ -1,9 +1,9 @@
 # Identity and access parameters
-api_fingerprint      = "REPLACE_BY_YOUR_FINGERPRINT"       # Fingerprint of OCI API private key
+api_fingerprint      = "8b:09:1f:50:74:66:d5:c2:6d:2a:35:a9:59:e2:85:88"       # Fingerprint of OCI API private key
 api_private_key_path = "~/.oci/oci_api_key.pem"            # Path to OCI API private key
-region               = "us-phoenix-1"                      # OCI region where resources will be created
-tenancy_id           = "REPLACE_YOUR_TENANCY_OCID"         # Tenancy ID
-user_id              = "REPLACE_BY_YOUR_USER_OCID"         # User OCID
+region               = "ap-chuncheon-1"                      # OCI region where resources will be created
+tenancy_id           = "ocid1.tenancy.oc1..aaaaaaaayiyrxysatpsvrjmkl3cpxh2ijzjmms4jy7x5vskamh2eh4hcaaeq"         # Tenancy ID
+user_id              = "ocid1.user.oc1..aaaaaaaaj3fxvv3unt6d7r2qepursbnzqaaa5tbknoymxvcxkrxgxy7cjk7a"         # User OCID
 
 # VCN specific variables
 create_new_vcn    = true                          # Set to true to create new VCN, false to use existing
@@ -13,9 +13,7 @@ vcn_display_name  = "terraform_vcn_example"      # VCN display name
 vcn_dns_label     = "terraformvcn"               # VCN DNS label
 
 # Configure for an existing VCN
-vcn_id            = "REPLACE_BY_YOUR_VCN_OCID"                # VCN OCID (if using existing)
-private_subnet_id = "REPLACE_BY_YOUR_PRIVATE_SUBNET_OCID"     # Private subnet OCID (if using existing)
-public_subnet_id  = "REPLACE_BY_YOUR_PUBLIC_SUBNET_OCID"      # Public subnet OCID (if using existing)
+public_subnet_id  = "ocid1.subnet.oc1.ap-chuncheon-1.aaaaaaaaqonmvl7shu7rn56go3wdujo2vz7tarkpvlidcakya65vivw5ivba"      # Public subnet OCID (if using existing)
 
 # Private subnet variables
 private_subnet_cidr_block                 = "10.0.1.0/24"               # Private subnet CIDR block
